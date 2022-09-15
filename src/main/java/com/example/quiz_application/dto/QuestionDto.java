@@ -9,6 +9,6 @@ public class QuestionDto {
     private String topic;
     private String difficultyLevel;
     private String content;
-    private List<String> response;
+    private List<String> responses;
 
 }

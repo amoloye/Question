@@ -27,6 +27,6 @@ public class Question {
 
     @ManyToMany
     @JoinColumn(name = "responseId")
-    private List<Response> response;
+    private List<Response> responses;
 
 }
