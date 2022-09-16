@@ -3,7 +3,8 @@ package com.example.quiz_application.dto;
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.Map;
+import java.util.List;
+
 
 @Data
 @Builder
@@ -12,6 +13,6 @@ public class QuestionDto {
     private String topic;
     private String difficultyLevel;
     private String content;
-    private Map<Boolean,String> responses;
+    private List<String> responseDto;
 
 }

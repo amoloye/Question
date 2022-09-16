@@ -6,13 +6,13 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Map;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Table(name = "question")
+@Entity
 public class Question {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -24,6 +24,8 @@ public class Question {
 
     private String content;
 
-    private Map<Boolean,String> responses;
+    @OneToMany
+    @JoinColumn(name = "responseId")
+    private List<Response> responses;
 
 }

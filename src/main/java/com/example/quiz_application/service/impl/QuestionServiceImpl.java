@@ -3,15 +3,16 @@ package com.example.quiz_application.service.impl;
 import com.example.quiz_application.dto.QuestionDto;
 import com.example.quiz_application.entity.DifficultyLevel;
 import com.example.quiz_application.entity.Question;
+import com.example.quiz_application.entity.Response;
 import com.example.quiz_application.exception.QuestionNotFoundException;
 import com.example.quiz_application.mapper.QuestionMapper;
 import com.example.quiz_application.repository.QuestionRepository;
 import com.example.quiz_application.service.QuestionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.Objects;
 import java.util.Optional;
+
 
 @Service
 @RequiredArgsConstructor
@@ -72,10 +73,9 @@ public class QuestionServiceImpl implements QuestionService {
             questionDB.setDifficultyLevel(DifficultyLevel.valueOf(questionDto.getDifficultyLevel()));
         }
 
-        //question responses can only be added to and not replaced
-        if (Objects.nonNull(questionDto.getResponses())&&
-                !"".equalsIgnoreCase(String.valueOf(questionDto.getResponses()))){
-            questionDB.getResponses().putAll(questionDto.getResponses());
+        if (Objects.nonNull(questionDto.getResponseDto())&&
+                !"".equalsIgnoreCase(String.valueOf(questionDto.getResponseDto()))){
+            questionDB.getResponses().add((Response) questionDto.getResponseDto());
         }
 
         return questionRepository.save(questionDB);
@@ -85,25 +85,4 @@ public class QuestionServiceImpl implements QuestionService {
 
 
 
-//    @Override
-//    public Department updateDepartment (Long departmentId, Department department) {
 
-//        Department depDB = departmentRepository.findById(departmentId).get();
-//
-//        if (Objects.nonNull(department.getDepartmentName())&&
-//                !"".equalsIgnoreCase(department.getDepartmentName())){
-//            depDB.setDepartmentName(department.getDepartmentName());
-//        }
-//        if (Objects.nonNull(department.getDepartmentCode())&&
-//                !"".equalsIgnoreCase(department.getDepartmentCode())){
-//            depDB.setDepartmentCode(department.getDepartmentCode());
-//        }
-//
-//        if (Objects.nonNull(department.getDepartmentAddress())&&
-//                !"".equalsIgnoreCase(department.getDepartmentAddress())){
-//            depDB.setDepartmentAddress(department.getDepartmentAddress());
-//        }
-//
-//        return departmentRepository.save(depDB);
-//
-//    }
