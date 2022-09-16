@@ -20,4 +20,12 @@ public class ApplicationExceptionHandler {
         ex.getBindingResult().getFieldErrors().forEach(error -> errorMap.put(error.getField(), error.getDefaultMessage()));
         return errorMap;
     }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(QuestionNotFoundException.class)
+    public Map<String,String> handleBusinessException(QuestionNotFoundException exception){
+        Map<String,String> errorMap= new HashMap<>();
+        errorMap.put("errorMessage", exception.getMessage());
+        return  errorMap;
+    }
 }

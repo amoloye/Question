@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Map;
 
 @Data
 @NoArgsConstructor
@@ -17,16 +18,12 @@ public class Question {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long questionId;
 
-    @OneToOne
-    @JoinColumn(name = "topicId")
-    private Topic topic;
+    private String topic;
 
     private DifficultyLevel difficultyLevel;
 
     private String content;
 
-    @ManyToMany
-    @JoinColumn(name = "responseId")
-    private List<Response> responses;
+    private Map<Boolean,String> responses;
 
 }
