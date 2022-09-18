@@ -1,5 +1,6 @@
 package com.example.quiz_application.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 
@@ -13,6 +14,7 @@ public class QuestionDto {
     private String topic;
     private String difficultyLevel;
     private String content;
-    private List<String> responseDto;
+    @JsonIgnore
+    private List<ResponseDto> responses;
 
 }

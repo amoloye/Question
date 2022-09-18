@@ -1,18 +1,17 @@
 package com.example.quiz_application.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @AllArgsConstructor
 @Entity
 @NoArgsConstructor
+@Builder
 public class Response {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,4 +20,8 @@ public class Response {
     private String text;
 
     private boolean correct;
+
+    @ManyToOne
+    @JoinColumn(name = "questionId")
+    private Question question;
 }

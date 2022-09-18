@@ -8,16 +8,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping
 public class QuestionController {
     private final QuestionService questionService;
 
-    @PostMapping("/question")
-    public ResponseEntity<Question> createQuestion(@RequestBody QuestionDto questionDto){
-        return ResponseEntity.ok().body(questionService.createQuestion(questionDto));
-    }
 
     @GetMapping("/question")
     public ResponseEntity<Question> getQuestionById(@RequestBody QuestionDto questionDto) throws QuestionNotFoundException {
@@ -38,6 +36,12 @@ public class QuestionController {
     @PutMapping("/update-question")
     public ResponseEntity<Question> updateQuestion(@RequestBody QuestionDto questionDto) {
         return ResponseEntity.ok().body(questionService.updateQuestion(questionDto));
+    }
+
+
+    @PostMapping("/create-questionList")
+    public ResponseEntity<List<Question>> createQuestionList (@RequestBody List<QuestionDto> questionDtoList){
+        return ResponseEntity.ok().body(questionService.createQuestionList(questionDtoList));
     }
 }
 

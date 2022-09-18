@@ -10,6 +10,8 @@ import com.example.quiz_application.repository.QuestionRepository;
 import com.example.quiz_application.service.QuestionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -20,12 +22,6 @@ public class QuestionServiceImpl implements QuestionService {
     private final QuestionRepository questionRepository;
 
 
-    @Override
-    public Question createQuestion (QuestionDto questionDto) {
-        Question question = QuestionMapper.INSTANCE.questionDtoToQuestion(questionDto);
-
-        return questionRepository.save(question);
-    }
 
     @Override
     public Question getQuestionById (QuestionDto questionDto) throws QuestionNotFoundException {
@@ -40,11 +36,8 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public Question getQuestionByTopic (QuestionDto questionDto) throws QuestionNotFoundException {
         String topic = questionDto.getTopic();
-        Optional<Question> question=  questionRepository.findByTopic(topic);
-        if (!question.isPresent()){
-            throw new QuestionNotFoundException("Question Not Available");
-        }
-        return   question.get();
+        return  questionRepository.findByTopicIgnoreCase(topic)
+                .orElseThrow(()-> new QuestionNotFoundException("Question Not Available"));
     }
 
     @Override
@@ -73,12 +66,19 @@ public class QuestionServiceImpl implements QuestionService {
             questionDB.setDifficultyLevel(DifficultyLevel.valueOf(questionDto.getDifficultyLevel()));
         }
 
-        if (Objects.nonNull(questionDto.getResponseDto())&&
-                !"".equalsIgnoreCase(String.valueOf(questionDto.getResponseDto()))){
-            questionDB.getResponses().add((Response) questionDto.getResponseDto());
+        if (Objects.nonNull(questionDto.getResponses())&&
+                !"".equalsIgnoreCase(String.valueOf(questionDto.getResponses()))){
+            questionDB.getResponses().add((Response) questionDto.getResponses());
         }
 
         return questionRepository.save(questionDB);
+    }
+
+    @Override
+    public List<Question> createQuestionList (List<QuestionDto> questionDtoList) {
+        List<Question> questionList = QuestionMapper.INSTANCE.questionDtoToQuestion(questionDtoList);
+
+       return  questionRepository.saveAll(questionList);
     }
 
 }

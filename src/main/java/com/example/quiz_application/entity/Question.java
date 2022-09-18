@@ -1,4 +1,5 @@
 package com.example.quiz_application.entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,8 +25,13 @@ public class Question {
 
     private String content;
 
-    @OneToMany
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "responseId")
     private List<Response> responses;
 
+
+
 }
+
+
