@@ -9,4 +9,5 @@ import java.util.Optional;
 @Repository
 public interface QuestionRepository extends JpaRepository<Question,Long> {
     Optional<Question> findByTopicIgnoreCase (String topic);
+    Optional<Question> findByQuestionId (Long questionId);
 }

@@ -17,19 +17,19 @@ public class QuestionController {
     private final QuestionService questionService;
 
 
-    @GetMapping("/question")
-    public ResponseEntity<Question> getQuestionById(@RequestBody QuestionDto questionDto) throws QuestionNotFoundException {
-        return ResponseEntity.ok().body(questionService.getQuestionById(questionDto));
+    @GetMapping("/question/{questionId}")
+    public ResponseEntity<Question> getQuestionById(@PathVariable("questionId") Long questionId ) throws QuestionNotFoundException {
+        return ResponseEntity.ok().body(questionService.getQuestionById(questionId));
     }
 
-    @GetMapping("/filter-by-topic")
-    public ResponseEntity<Question> getQuestionByTopic(@RequestBody QuestionDto questionDto) throws QuestionNotFoundException {
-        return ResponseEntity.ok().body(questionService.getQuestionByTopic(questionDto));
+    @GetMapping("/filter-by-topic/{topic}")
+    public ResponseEntity<Question> getQuestionByTopic(@PathVariable("topic")String topic) throws QuestionNotFoundException {
+        return ResponseEntity.ok().body(questionService.getQuestionByTopic(topic));
     }
 
-    @DeleteMapping("/question")
-    public void deleteQuestion(@RequestBody QuestionDto questionDto){
-        questionService.deleteQuestionById(questionDto);
+    @DeleteMapping("/question/{questionId}")
+    public void deleteQuestion(@PathVariable("questionId") Long questionId){
+        questionService.deleteQuestionById(questionId);
         System.out.println( "question deleted successfully");
     }
 

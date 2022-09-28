@@ -10,11 +10,11 @@ import java.util.List;
 
 public interface QuestionService {
 
-    Question getQuestionById (QuestionDto questionDto) throws QuestionNotFoundException;
+    Question getQuestionById (Long questionId) throws QuestionNotFoundException;
 
-    Question getQuestionByTopic (QuestionDto questionDto) throws QuestionNotFoundException;
+    Question getQuestionByTopic (String topic) throws QuestionNotFoundException;
 
-    void deleteQuestionById (QuestionDto questionDto);
+    void deleteQuestionById (Long questionId);
 
     Question updateQuestion (QuestionDto questionDto);
 

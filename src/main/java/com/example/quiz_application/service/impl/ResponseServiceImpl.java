@@ -5,11 +5,13 @@ import com.example.quiz_application.entity.Response;
 import com.example.quiz_application.mapper.ResponseMapper;
 import com.example.quiz_application.repository.ResponseRepository;
 import com.example.quiz_application.service.ResponseService;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Builder
 @Service
 @RequiredArgsConstructor
 public class ResponseServiceImpl implements ResponseService {

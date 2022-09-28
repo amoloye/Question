@@ -8,6 +8,7 @@ import com.example.quiz_application.exception.QuestionNotFoundException;
 import com.example.quiz_application.mapper.QuestionMapper;
 import com.example.quiz_application.repository.QuestionRepository;
 import com.example.quiz_application.service.QuestionService;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-
+@Builder
 @Service
 @RequiredArgsConstructor
 public class QuestionServiceImpl implements QuestionService {
@@ -24,9 +25,8 @@ public class QuestionServiceImpl implements QuestionService {
 
 
     @Override
-    public Question getQuestionById (QuestionDto questionDto) throws QuestionNotFoundException {
-        long questionId = questionDto.getQuestionId();
-        Optional<Question> question=  questionRepository.findById(questionId);
+    public Question getQuestionById (Long questionId) throws QuestionNotFoundException {
+        Optional<Question> question=  questionRepository.findByQuestionId(questionId);
         if (!question.isPresent()){
             throw new QuestionNotFoundException("Question Not Available");
         }
@@ -34,15 +34,13 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public Question getQuestionByTopic (QuestionDto questionDto) throws QuestionNotFoundException {
-        String topic = questionDto.getTopic();
+    public Question getQuestionByTopic (String topic) throws QuestionNotFoundException {
         return  questionRepository.findByTopicIgnoreCase(topic)
                 .orElseThrow(()-> new QuestionNotFoundException("Question Not Available"));
     }
 
     @Override
-    public void deleteQuestionById (QuestionDto questionDto) {
-        long questionId = questionDto.getQuestionId();
+    public void deleteQuestionById (Long questionId) {
         questionRepository.deleteById(questionId);
     }
 
